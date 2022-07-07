@@ -1,2 +1,47 @@
-package jdbc_tests;public class LibraryConnectionTest {
+package jdbc_tests;
+
+import org.junit.jupiter.api.Test;
+import utilities.DBUtils;
+
+import java.sql.*;
+
+public class LibraryConnectionTest {
+
+    @Test
+    public void test1() throws SQLException {
+        String dbUrl = "jdbc:mysql://34.230.35.214:3306/library2";
+        String dbUsername = "library2_client";
+        String dbPassword = "6s2LQQTjBcGFfDhY";
+
+        Connection connection = DriverManager.getConnection(dbUrl,dbUsername,dbPassword);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM books");
+
+        //once you set up connection default pointer looks for 0
+        //next() --> move pointer to first row
+        resultSet.next();
+
+        System.out.println(resultSet.getString(2));
+
+
+        //close connection
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+
+
+    }
+
+    @Test
+    public void test2(){
+        String dbUrl = "jdbc:mysql://34.230.35.214:3306/library2";
+        String dbUsername = "library2_client";
+        String dbPassword = "6s2LQQTjBcGFfDhY";
+
+        DBUtils.createConnection(dbUrl,dbUsername,dbPassword);
+
+        DBUtils.destroy();
+    }
+
 }

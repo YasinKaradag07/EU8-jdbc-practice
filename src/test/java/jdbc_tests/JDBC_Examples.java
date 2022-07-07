@@ -92,8 +92,6 @@ public class JDBC_Examples {
         }
 
 
-
-
         resultSet.close();
         statement.close();
         connection.close();
